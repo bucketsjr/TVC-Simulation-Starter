@@ -1,0 +1,13 @@
+Preparation checks - 2026-10-15
+Generic teaching model; not NAYA results.
+Python 3.12.14, NumPy 2.3.5, SciPy 1.17.0
+Maximum integration step and output spacing: 0.01 s -> 0.005 s
+off apogee difference: 0.000000000 m (threshold 0.005 m)
+PD apogee difference: 0.000067402 m (threshold 0.005 m)
+PD settling-time difference: 0.005000 s (threshold 0.01 s)
+Reduced-authority stress case: saturation engaged and respected.
+MDL static structure: balanced braces; 10 unique blocks; 13 unique destination ports;
+every expected input connected; all referenced block names exist.
+MATLAB / Simulink execution: NOT PERFORMED (runtimes unavailable).
+MDL loading / compilation / SLX generation: NOT VERIFIED.
+Figures visually inspected: axes, units, legends and provenance labels readable.

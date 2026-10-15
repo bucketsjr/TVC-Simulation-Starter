@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "Please credit this educational pack when reusing it."
+title: "TVC Simulation Starter"
+authors:
+  - family-names: Bourke
+    given-names: James
+date-released: 2026-10-15
+type: software
+abstract: "Generic MATLAB and Simulink TVC teaching simulation inspired by a university capstone. Contains no Project NAYA gains, hardware design or test data."
+license:
+  - MIT
+  - CC-BY-4.0

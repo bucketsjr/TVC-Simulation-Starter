@@ -1,0 +1,154 @@
+Model {
+  Name "tvc_pd_educational"
+  Version 7.0
+  ModelVersion "1.0"
+  StartTime "0.0"
+  StopTime "p.attitude_end"
+  Solver "ode45"
+  RelTol "1e-8"
+  AbsTol "1e-10"
+  MaxStep "0.01"
+  ReturnWorkspaceOutputs on
+  System {
+    Name "tvc_pd_educational"
+    Location [50, 50, 1080, 650]
+    Block {
+      BlockType Gain
+      Name "Angle_feedback"
+      Position [90, 190, 170, 230]
+      Gain "-p.Kp"
+    }
+    Block {
+      BlockType Gain
+      Name "Rate_feedback"
+      Position [90, 85, 170, 125]
+      Gain "-p.Kd"
+    }
+    Block {
+      BlockType Sum
+      Name "PD_sum"
+      Position [230, 115, 260, 155]
+      Inputs "++"
+    }
+    Block {
+      BlockType Saturate
+      Name "Gimbal_limit"
+      Position [310, 115, 380, 155]
+      UpperLimit "p.delta_max"
+      LowerLimit "-p.delta_max"
+    }
+    Block {
+      BlockType Gain
+      Name "Torque_over_inertia"
+      Position [425, 115, 515, 155]
+      Gain "p.b"
+    }
+    Block {
+      BlockType Integrator
+      Name "Angular_rate"
+      Position [565, 115, 605, 155]
+      InitialCondition "p.omega0"
+    }
+    Block {
+      BlockType Integrator
+      Name "Attitude"
+      Position [660, 115, 700, 155]
+      InitialCondition "p.theta0"
+    }
+    Block {
+      BlockType Mux
+      Name "Angle_rate_command"
+      Position [780, 165, 785, 255]
+      Inputs "3"
+    }
+    Block {
+      BlockType Scope
+      Name "Response_scope"
+      Position [850, 160, 890, 200]
+    }
+    Block {
+      BlockType ToWorkspace
+      Name "Simulation_log"
+      Position [835, 235, 945, 275]
+      VariableName "simlog"
+      SaveFormat "Structure With Time"
+      MaxDataPoints "inf"
+    }
+    Line {
+      SrcBlock "Angle_feedback"
+      SrcPort 1
+      DstBlock "PD_sum"
+      DstPort 1
+    }
+    Line {
+      SrcBlock "Rate_feedback"
+      SrcPort 1
+      DstBlock "PD_sum"
+      DstPort 2
+    }
+    Line {
+      SrcBlock "PD_sum"
+      SrcPort 1
+      DstBlock "Gimbal_limit"
+      DstPort 1
+    }
+    Line {
+      SrcBlock "Gimbal_limit"
+      SrcPort 1
+      Branch {
+        DstBlock "Torque_over_inertia"
+        DstPort 1
+      }
+      Branch {
+        DstBlock "Angle_rate_command"
+        DstPort 3
+      }
+    }
+    Line {
+      SrcBlock "Torque_over_inertia"
+      SrcPort 1
+      DstBlock "Angular_rate"
+      DstPort 1
+    }
+    Line {
+      SrcBlock "Angular_rate"
+      SrcPort 1
+      Branch {
+        DstBlock "Attitude"
+        DstPort 1
+      }
+      Branch {
+        DstBlock "Rate_feedback"
+        DstPort 1
+      }
+      Branch {
+        DstBlock "Angle_rate_command"
+        DstPort 2
+      }
+    }
+    Line {
+      SrcBlock "Attitude"
+      SrcPort 1
+      Branch {
+        DstBlock "Angle_feedback"
+        DstPort 1
+      }
+      Branch {
+        DstBlock "Angle_rate_command"
+        DstPort 1
+      }
+    }
+    Line {
+      SrcBlock "Angle_rate_command"
+      SrcPort 1
+      Branch {
+        DstBlock "Response_scope"
+        DstPort 1
+      }
+      Branch {
+        DstBlock "Simulation_log"
+        DstPort 1
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+TVC SIMULATION STARTER
+James Bourke | 2026 | Fresh generic example, inspired by Project: NAYA
+
+This is a small educational simulation pack based on the controls ideas I
+explored during my university capstone. Hopefully it helps you get a feel for
+TVC and calculate your own starting gains. It contains no NAYA hardware design
+or project-specific gains.
+
+1. Unzip the folder and open MATLAB.
+2. Set Current Folder to TVC-Simulation-Starter.
+3. Run:
+
+   addpath('matlab');
+   check_demo;
+   results = run_demo;
+
+4. Look at the two figure windows. New outputs go to results/matlab_run/.
+5. Read docs/CONTROLS_WALKTHROUGH.md before changing gains.
+
+TO TRY YOUR OWN GAINS
+
+Edit matlab/tvc_parameters.m to change the example parameters and targets.
+Then run the demo again. To experiment temporarily in the Command Window:
+
+   p = tvc_parameters();
+   p.Kp = 0.10;
+   p.Kd = 0.04;
+   response = tvc_attitude(p,'PD');
+   plot(response.t,response.theta*180/pi); grid on;
+
+Those example manual gains are generic too. run_demo reloads parameters from
+tvc_parameters.m; it does not reuse the temporary p above.
+
+TO OPEN SIMULINK (requires Simulink)
+
+   p = tvc_parameters();
+   addpath('simulink');
+   open_system('tvc_pd_educational');
+   check_simulink;
+
+The model reads p from the workspace and regulates angle to zero. Logged
+signals are angle [rad], angular rate [rad/s] and gimbal command [rad].
+For a P-only experiment, set p.Kd = 0 and run the model using its Run button.
+check_simulink intentionally uses fresh defaults for its reference check.
+
+TO CREATE A NATIVE .slx COPY
+
+   build_simulink_model;
+   check_simulink('tvc_pd_generated');
+
+The supplied .mdl and builder have not been opened or run in Simulink here.
+The included plots were computed independently in Python using the documented
+nonlinear equations. MATLAB and Simulink checks are supplied for local use.
+
+READ THE RESULTS CORRECTLY
+
+The flight plots are hypothetical free-flight simulations, not NAYA flights.
+NAYA was a bench project. More height in this example does not mean more
+height for every rocket or every gain choice. There is no hardware interface.
+
+LICENCES
+
+Code/models: MIT, see LICENSE.
+Original documentation/figures/result tables: CC BY 4.0, see LICENSE-DOCS.md.
+Keep the required notices and give credit. See NOTICE.md for the full scope.

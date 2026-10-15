@@ -1,0 +1,60 @@
+{
+  "provenance": "Fresh generic simulation; independently executed in Python; not NAYA results",
+  "parameters": {
+    "mass": 0.75,
+    "inertia": 0.028,
+    "thrust": 12.0,
+    "arm": 0.16,
+    "zeta": 0.8,
+    "settling_target": 1.8,
+    "delta_max": 0.12217304763960307,
+    "theta0": 0.13962634015954636,
+    "omega0": 0.06981317007977318,
+    "burn": 4.0,
+    "gravity": 9.81,
+    "density": 1.225,
+    "cd_area": 0.003,
+    "initial_height": 2.0,
+    "attitude_end": 6.0,
+    "flight_end": 20.0,
+    "sample_dt": 0.01,
+    "max_step": 0.01
+  },
+  "Kp": 0.11252572016460902,
+  "Kd": 0.06481481481481481,
+  "b": 68.57142857142857,
+  "metrics": [
+    {
+      "mode": "ideal",
+      "attitude_settle_2pct_s": null,
+      "attitude_rms_deg": 0.0,
+      "max_gimbal_deg": 0.0,
+      "apogee_m": 74.82623475452046,
+      "burnout_height_m": 49.63807803159711
+    },
+    {
+      "mode": "off",
+      "attitude_settle_2pct_s": null,
+      "attitude_rms_deg": 21.169789795839133,
+      "max_gimbal_deg": 0.0,
+      "apogee_m": 65.33256364845906,
+      "burnout_height_m": 45.891814735539285
+    },
+    {
+      "mode": "P",
+      "attitude_settle_2pct_s": null,
+      "attitude_rms_deg": 5.86490284476622,
+      "max_gimbal_deg": 0.9146704129347548,
+      "apogee_m": 73.33244580624282,
+      "burnout_height_m": 48.86682670323947
+    },
+    {
+      "mode": "PD",
+      "attitude_settle_2pct_s": 1.42,
+      "attitude_rms_deg": 2.246548622759941,
+      "max_gimbal_deg": 1.1594650205761314,
+      "apogee_m": 74.38772772056666,
+      "burnout_height_m": 49.34948303912883
+    }
+  ]
+}
